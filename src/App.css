@@ -1,5 +1,11 @@
 .App{
   overflow-x: hidden;
+  background-color: rgb(219, 219, 219);
+}
+
+.header{
+  border-bottom: 3px solid #F50057 !important;
+  background-color: #FFFF;
 }
 
 .button-show{
@@ -38,6 +44,7 @@
 
 .card{
   border: 3px solid #F50057 !important;
+  background-color: #FFFF;
 }
 
 .main-separator{

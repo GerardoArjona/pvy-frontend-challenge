@@ -33,6 +33,7 @@ function App() {
         }
       )
       setComments(tempComments)
+      document.getElementById(postId).scrollIntoView({ behavior: 'smooth'});
     })
   }
 
@@ -40,10 +41,21 @@ function App() {
     let tempComments = comments
     tempComments = tempComments.filter(comments => comments.id !== postId)
     setComments(tempComments)
+    document.getElementById(postId).scrollIntoView({ behavior: 'smooth' });
   }
 
   return (
     <div className="App">
+    <header className="header">
+        <Row className="pt-3 mb-3">
+          <Col xs={12} sm={12} md={6} lg={6} className="text-center">
+            <h3>PVY-ReactJS Frontend Challenge</h3>
+          </Col>
+          <Col xs={12} sm={12} md={6} lg={6} className="text-center">
+            <h3>Made with ❤️ by GerardoArjona</h3>
+          </Col>
+        </Row>
+    </header>
     <Row>
       <Col xs={12} sm={12} md={{span: 4, offset:4}} lg={{span: 4, offset:4}}>
         {
@@ -54,7 +66,7 @@ function App() {
             else
               postComments = postComments.comments
             return(
-              <Container key={post.id} className="mt-3">
+              <Container key={post.id} className="mt-3" id={post.id}>
               <Card className="text-center">
                 <Card.Body>
                   <Card.Title>{post.title}</Card.Title>
