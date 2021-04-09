@@ -33,7 +33,7 @@ Create a **.env** file in the project root to store all the local enviroment var
 ### **Mobile view is available**
 
 Used **Bootstrap** to handle desktop & mobile sizing.
-Besides **Bootstrap** all the CSS es custom made.
+Besides **Bootstrap** all the CSS is custom made.
 
 [![ForTheBadge uses-html](http://ForTheBadge.com/images/badges/uses-html.svg)](http://ForTheBadge.com)
 [![ForTheBadge uses-css](http://ForTheBadge.com/images/badges/uses-css.svg)](http://ForTheBadge.com)
