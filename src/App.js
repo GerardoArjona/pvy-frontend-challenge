@@ -55,7 +55,7 @@ function App() {
               postComments = postComments.comments
             return(
               <Container key={post.id} className="mt-3">
-              <Card>
+              <Card className="text-center">
                 <Card.Body>
                   <Card.Title>{post.title}</Card.Title>
                   <Card.Text>
@@ -65,34 +65,41 @@ function App() {
                 {
                   postComments.length > 0
                   ? <React.Fragment>
-                    <hr></hr>
+                    <hr className="main-separator"></hr>
                     {
                       postComments.map((comment, index) =>(
                         <React.Fragment key={comment.id}>
-                          {index > 0 ? <hr></hr> : <React.Fragment></React.Fragment>}
+                          {index > 0 ? <hr className="comment-separator"></hr> : <React.Fragment></React.Fragment>}
                           <Container key={comment.id}>
                               <Row>
                                 <Col xs={12} sm={12} md={6} lg={6}>
-                                  <p>{comment.name}</p>
+                                  <p className="comment comment-name">{comment.name}</p>
                                 </Col>
                                 <Col xs={12} sm={12} md={6} lg={6}>
-                                  <p>{comment.email}</p>
+                                  <p className="comment comment-email">{comment.email}</p>
                                 </Col>
                               </Row>
                               <Row>
                                 <Col xs={12} sm={12} md={12} lg={12}>
-                                  <p>{comment.body}</p>
+                                  <p className="comment">{comment.body}</p>
                                 </Col>
                               </Row>
                           </Container>
                         </React.Fragment>
                       ))
                     }
-                    <button onClick={e => removeComments(post.id)}>Hide comments</button> 
+                    <Row className="mb-3">
+                      <Col xs={12} sm={12} md={12} lg={12} className="text-center">
+                        <button onClick={e => removeComments(post.id)} className="button-hide">Hide comments</button>
+                      </Col>
+                    </Row>
+                     
                   </React.Fragment>
-                    
-                  
-                  :  <button onClick={e => getComments(post.id)}>Show comments</button> 
+                  : <Row className="mb-3">
+                      <Col xs={12} sm={12} md={12} lg={12} className="text-center">
+                        <button onClick={e => getComments(post.id)} className="button-show">Show comments</button> 
+                      </Col>
+                    </Row> 
                 }
               </Card>
               </Container>
