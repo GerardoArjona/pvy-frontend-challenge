@@ -36,6 +36,12 @@ function App() {
     })
   }
 
+  const removeComments = (postId) =>{
+    let tempComments = comments
+    tempComments = tempComments.filter(comments => comments.id !== postId)
+    setComments(tempComments)
+  }
+
   return (
     <div className="App">
     <Row>
@@ -53,14 +59,21 @@ function App() {
                 <h4>{post.body}</h4>
                 {
                   postComments.length > 0
-                  ? postComments.map(comment =>(
-                    <Container key={comment.id}>
-                      <p>{comment.name}</p>
-                      <p>{comment.email}</p>
-                      <p>{comment.body}</p>
-                    </Container>
-                  ))
-                  :  <button onClick={e => getComments(post.id)}>Comments</button> 
+                  ? <React.Fragment>
+                    {
+                      postComments.map(comment =>(
+                        <Container key={comment.id}>
+                          <p>{comment.name}</p>
+                          <p>{comment.email}</p>
+                          <p>{comment.body}</p>
+                        </Container>
+                      ))
+                    }
+                    <button onClick={e => removeComments(post.id)}>Hide comments</button> 
+                  </React.Fragment>
+                    
+                  
+                  :  <button onClick={e => getComments(post.id)}>Show comments</button> 
                 }
               </Container>
             )
