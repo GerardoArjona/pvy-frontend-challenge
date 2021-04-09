@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import axios from 'axios'
 
 import './App.css';
@@ -45,7 +45,7 @@ function App() {
   return (
     <div className="App">
     <Row>
-      <Col xs={12} sm={12} md={12} lg={12}>
+      <Col xs={12} sm={12} md={{span: 4, offset:4}} lg={{span: 4, offset:4}}>
         {
           posts.map(post =>{
             let postComments = comments.find(comments => comments.id === post.id)
@@ -55,18 +55,37 @@ function App() {
               postComments = postComments.comments
             return(
               <Container key={post.id} className="mt-3">
-                <h2>{post.title}</h2>
-                <h4>{post.body}</h4>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{post.title}</Card.Title>
+                  <Card.Text>
+                    {post.body}
+                  </Card.Text>
+                </Card.Body>
                 {
                   postComments.length > 0
                   ? <React.Fragment>
+                    <hr></hr>
                     {
-                      postComments.map(comment =>(
-                        <Container key={comment.id}>
-                          <p>{comment.name}</p>
-                          <p>{comment.email}</p>
-                          <p>{comment.body}</p>
-                        </Container>
+                      postComments.map((comment, index) =>(
+                        <React.Fragment key={comment.id}>
+                          {index > 0 ? <hr></hr> : <React.Fragment></React.Fragment>}
+                          <Container key={comment.id}>
+                              <Row>
+                                <Col xs={12} sm={12} md={6} lg={6}>
+                                  <p>{comment.name}</p>
+                                </Col>
+                                <Col xs={12} sm={12} md={6} lg={6}>
+                                  <p>{comment.email}</p>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col xs={12} sm={12} md={12} lg={12}>
+                                  <p>{comment.body}</p>
+                                </Col>
+                              </Row>
+                          </Container>
+                        </React.Fragment>
                       ))
                     }
                     <button onClick={e => removeComments(post.id)}>Hide comments</button> 
@@ -75,6 +94,7 @@ function App() {
                   
                   :  <button onClick={e => getComments(post.id)}>Show comments</button> 
                 }
+              </Card>
               </Container>
             )
           }
