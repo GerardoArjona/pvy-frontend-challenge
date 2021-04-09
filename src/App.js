@@ -8,6 +8,7 @@ import './App.css';
 function App() {
 
   const [posts, setPosts] = useState([])
+  const [comments, setComments] = useState([])
 
   useEffect(()=>{
     getPosts()
@@ -20,17 +21,52 @@ function App() {
     })
   }
 
+  const getComments = (postId) =>{
+    setComments([])
+    axios.get(`${process.env.REACT_APP_API}/comments?postId=${postId}`)
+    .then(res =>{
+      let tempComments = comments
+      tempComments.push(
+        {
+          id: res.data[0].postId,
+          comments: res.data
+        }
+      )
+      setComments(tempComments)
+    })
+  }
+
   return (
     <div className="App">
     <Row>
       <Col xs={12} sm={12} md={12} lg={12}>
         {
-          posts.map(post =>(
-            <React.Fragment key={post.id}>
-              <h2>{post.title}</h2>
-              <h4>{post.body}</h4>
-            </React.Fragment>
-          ))
+          posts.map(post =>{
+            let postComments = comments.find(comments => comments.id === post.id)
+            if(postComments === undefined)
+              postComments = []
+            else
+              postComments = postComments.comments
+            return(
+              <Container key={post.id} className="mt-3">
+                <h2>{post.title}</h2>
+                <h4>{post.body}</h4>
+                {
+                  postComments.length > 0
+                  ? postComments.map(comment =>(
+                    <Container key={comment.id}>
+                      <p>{comment.name}</p>
+                      <p>{comment.email}</p>
+                      <p>{comment.body}</p>
+                    </Container>
+                  ))
+                  :  <button onClick={e => getComments(post.id)}>Comments</button> 
+                }
+              </Container>
+            )
+          }
+            
+          )
         }
       </Col>
     </Row>
